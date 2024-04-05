@@ -1,0 +1,20 @@
+.darkOverlay {
+  filter: brightness(55%);
+  will-change: brightness;
+  transition: 150ms linear;
+}
+
+.darkHover:hover .darkOverlay {
+  filter: brightness(70%);
+  transition: 150ms linear;
+}
+.discounted {
+  text-decoration: line-through;
+  text-decoration-color: purple;
+  text-decoration-thickness: 3px;
+}
+.discounted {
+  text-decoration: line-through;
+  text-decoration-color: purple;
+  text-decoration-thickness: 3px;
+}

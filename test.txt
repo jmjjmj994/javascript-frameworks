@@ -1,0 +1,65 @@
+   {items?.length > 0 &&
+            items.map(
+              ({ id, image, amount, title, discountedPrice, price }) => (
+                <li key={id} className="flex  justify-between items-center">
+                  <div className="h-[5rem] w-[5rem]">
+                    <img
+                      className="w-full h-full object-cover aspect-auto"
+                      src={image.url}
+                      alt=""
+                    />
+                  </div>
+
+                  <div>
+                    {amount > 1 ? (
+                      <div className="flex flex-col items-center">
+                        <div>
+                          <p>
+                            {amount} x {title}
+                          </p>
+                        </div>
+
+                        <div>
+                          <Increment incrementItems={incrementItems} id={id} />
+                          <Decrement decrementItems={decrementItems} id={id} />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center">
+                        <div>
+                          <p>
+                            {amount} {title}
+                          </p>
+                        </div>
+                        <div>
+                          <Increment incrementItems={incrementItems} id={id} />
+                          <Decrement decrementItems={decrementItems} id={id} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    {discountedPrice && discountedPrice < price && (
+                      <>
+                        <p>{discountedPrice}</p>
+                        {amount > 1 && (
+                          <p>{Math.trunc(discountedPrice * amount)}</p>
+                        )}
+                      </>
+                    )}
+
+                    {!discountedPrice ||
+                      (discountedPrice >= price && (
+                        <>
+                          <p>{price}</p>
+                          {amount > 1 && <p>{Math.trunc(price * amount)}</p>}
+                        </>
+                      ))}
+                  </div>
+                </li>
+              )
+            )}
+
+
+            
