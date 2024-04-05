@@ -6,9 +6,7 @@ function CartIcon() {
   const { items } = useCart();
   /*  const [isActive, setIsActive] = useState(false); */
   const [amount, setAmount] = useState(0);
-  const { isActive, handleActive } = useContext(TogglerContext);
-
-
+  const { handleCartActive } = useContext(TogglerContext) || {};
 
   useEffect(() => {
     function calculateAmount() {
@@ -27,7 +25,7 @@ function CartIcon() {
 
   return (
     <div className=" relative">
-      <button onClick={handleActive}>
+      <button onClick={handleCartActive}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

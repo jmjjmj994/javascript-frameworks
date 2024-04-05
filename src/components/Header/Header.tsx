@@ -27,9 +27,9 @@ function Header() {
 }
 
 function Hamburger() {
-  const { handleActive } = useContext(TogglerContext)!;
+  const { handleNavActive } = useContext(TogglerContext)!;
   return (
-    <button aria-label="open" onClick={() => handleActive()}>
+    <button aria-label="open" onClick={() => handleNavActive()}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

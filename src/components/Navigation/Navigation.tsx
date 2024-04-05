@@ -4,11 +4,11 @@ import { TogglerContext } from '../../hooks/use-toggler';
 import { useContext } from 'react';
 import { motion } from 'framer-motion';
 function Navigation() {
-  const { isActive } = useContext(TogglerContext)!;
+  const { navActive } = useContext(TogglerContext)!;
   return (
     <motion.nav
       initial={false}
-      animate={{ x: isActive ? 0 : '100%' }}
+      animate={{ x: navActive ? 0 : '100%' }}
       transition={{
         damping: 1,
         ease: 'easeIn',
@@ -31,9 +31,9 @@ function Navigation() {
 }
 
 function Button() {
-  const { handleActive } = useContext(TogglerContext)!;
+  const { handleNavActive } = useContext(TogglerContext)!;
   return (
-    <button aria-label="close" onClick={handleActive}>
+    <button aria-label="close" onClick={handleNavActive}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

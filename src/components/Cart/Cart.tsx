@@ -5,14 +5,12 @@ import { useContext } from 'react';
 
 function Cart() {
   const { items, incrementItem, decrementItem, removeItem } = useCart();
-  const { isActive} = useContext(TogglerContext);
-
-
+  const { cartActive } = useContext(TogglerContext)!;
 
   return (
     <motion.nav
       initial={false}
-      animate={{ x: isActive ? 0 : '100%' }}
+      animate={{ x: cartActive ? 0 : '100%' }}
       transition={{
         damping: 1,
         ease: 'easeIn',
@@ -21,7 +19,7 @@ function Cart() {
       className={`fixed top-0 right-0 w-[50%] h-full bg-pink-400 z-[1]`}
     >
       <div className="flex flex-col h-full">
-        <Button/>
+        <Button />
 
         <ul className="h-full "></ul>
         <div></div>
@@ -30,9 +28,10 @@ function Cart() {
   );
 }
 
-function Button({ handleActive }: { handleActive: () => void }) {
+function Button() {
+  const { handleCartActive } = useContext(TogglerContext)!;
   return (
-    <button className="self-end" onClick={() => handleActive()}>
+    <button className="self-end" onClick={handleCartActive}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
