@@ -2,7 +2,7 @@ import Navigation from '../Navigation/Navigation';
 import { TogglerContext, TogglerProvider } from '../../hooks/use-toggler';
 import { useContext } from 'react';
 import CartIcon from './CartIcon';
-import Cart from '../Cart';
+import Cart from '../../routes/Cart';
 
 function Header() {
   return (
@@ -13,7 +13,6 @@ function Header() {
             <b>Logo</b>
           </div>
           <Navigation />
-          <Cart />
           <div className="flex gap-[10px]">
             <CartIcon />
             <Hamburger />
