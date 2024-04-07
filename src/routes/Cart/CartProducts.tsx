@@ -31,8 +31,7 @@ function CartProducts() {
         <EmptyCartUI />
       ) : (
         <>
-          {' '}
-          <ul className="h-full flex flex-col gap-[7px] py-4 overflow-scroll">
+          <ul className="h-full flex flex-col gap-[7px] py-4 overflow-y-scroll">
             {items &&
               items.map(
                 ({ id, image, amount, title, price, discountedPrice }) => (

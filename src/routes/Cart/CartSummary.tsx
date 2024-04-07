@@ -32,7 +32,7 @@ function CartSummary() {
 
   return (
     <div className="md:max-w-[20rem] w-full min-h-[65vh]  h-full flex flex-col justify-between  gap-[10px]  ">
-      <div className="bg-white grow px-2 py-4">
+      <div className="bg-white grow  py-2 px-2 my-2">
         <div className="border-b-[0.1px]">
           <h2 className="tracking-widest">Summary</h2>
         </div>
