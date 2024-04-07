@@ -10,7 +10,6 @@ function ProductCard({
   price,
   discountedPrice,
   image,
-  tags,
 }: APIData) {
   return (
     <article
@@ -26,29 +25,22 @@ function ProductCard({
       <div className="flex  flex-col gap-[20px] pl-5 py-4 absolute bottom-0 ">
         <h2 className="font-headers text-white tracking-wider">{title}</h2>
         <div className="flex gap-[10px] text-white tracking-wider">
-          <>
-            {discountedPrice < price ? (
-              <>
-                <p className={`${styles.discounted} font-headers`}>{price}</p>
-                <p className={` font-headers`}>{discountedPrice}</p>
-              </>
-            ) : (
-              <p>{price}</p>
+          <div>
+            {discountedPrice < price && (
+              <div className="flex gap-[10px]">
+                <p>${Math.trunc(discountedPrice)}</p>{' '}
+              </div>
             )}
-          </>
 
-          {/*   <p className="font-headers ">{price}</p>
-          <p className={`${styles.discounted} font-headers`}>
-            {discountedPrice}
-          </p> */}
+            {price === discountedPrice && (
+              <div>
+                <p>${Math.trunc(price)}</p>{' '}
+              </div>
+            )}
+          </div>
         </div>
         <div>
           <p className="font-body text-white tracking-wide">{description}</p>
-          <div className="flex gap-[10px]">
-            {tags.map((tag, index) => (
-              <p key={index}>{tag}</p>
-            ))}
-          </div>
         </div>
         <div className="flex gap-[25px] ">
           <View id={id} />

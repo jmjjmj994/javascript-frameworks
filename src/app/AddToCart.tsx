@@ -17,7 +17,7 @@ function AddToCart({ id }: { id: string }) {
   return (
     <button
       onClick={() => fetchData()}
-      className="bg-primary-bg-clr font-headers py-2 px-3 text-sm tracking-wider"
+      className=" bg-primary-bg-clr font-headers py-2 px-3 text-sm tracking-wider"
     >
       Add to cart
     </button>

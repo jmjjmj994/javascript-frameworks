@@ -6,7 +6,7 @@ export default {
       backgroundColor: {
         primary: 'hsl(0, 0%, 95%)',
         secondary: 'hsl(0, 0%, 100%)',
-        'primary-bg-clr': '	hsl(50, 87%, 66%)',
+        'primary-bg-clr': 'hsl(50, 87%, 66%)',
         'card-bg-clr': 'hsl(0, 0%, 87%)',
       },
       fontFamily: {

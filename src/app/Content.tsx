@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 function Content() {
   const { data, loading, error } = useFetch('');
   const [product, setProduct] = useState<APIData[]>([]);
-
   useEffect(() => {
     setProduct(data);
   }, [data]);
+
+console.log(product)
+
 
   return (
     <div>

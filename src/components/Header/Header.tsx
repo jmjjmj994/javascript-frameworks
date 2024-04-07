@@ -2,13 +2,13 @@ import Navigation from '../Navigation/Navigation';
 import { TogglerContext, TogglerProvider } from '../../hooks/use-toggler';
 import { useContext } from 'react';
 import CartIcon from './CartIcon';
-import Cart from '../../routes/Cart';
+import Search from './Search';
 
 function Header() {
   return (
     <TogglerProvider>
-      <header className="flex flex-col items-between relative">
-        <div className=" wrapper bg-orange-500 w-full h-[50%] flex  justify-between items-center">
+      <header className="flex flex-col items-between relative ">
+        <div className=" wrapper bg-orange-500 w-full h-[50%] flex  justify-between items-center max-w-[80%] m-auto">
           <div>
             <b>Logo</b>
           </div>
@@ -18,7 +18,7 @@ function Header() {
             <Hamburger />
           </div>
         </div>
-
+        <Search />
         <div className="bg-blue-500 h-[50%] "></div>
       </header>
     </TogglerProvider>
