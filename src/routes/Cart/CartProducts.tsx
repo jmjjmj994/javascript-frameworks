@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import useCart from '../../hooks/use-cart';
 import { Link } from 'react-router-dom';
 function CartProducts() {
   const { items, incrementItem, decrementItem, removeItem } = useCart();
-  console.log(items);
+
   function incrementItems(id: string) {
     incrementItem(id);
   }
@@ -11,73 +12,127 @@ function CartProducts() {
     decrementItem(id);
   }
 
+  function removeProduct(id: string) {
+    removeItem(id);
+  }
+
   return (
-    <div className="w-full  h-full min-h-[50vh] flex flex-col bg-white">
-      <div className="">
-        <h1>Shopping Cart</h1>
-      </div>
-      <table className="w-full h-full">
-        <thead>
-          <tr className="flex justify-between font-light">
-            <th className="w-[33%] text-left font-light">Product</th>
-            <th className="w-[33%] text-center font-light">Quantity</th>
-            <th className="w-[33%] text-right font-light">Price</th>
-          </tr>
-        </thead>
-        <tbody className="h-full">
-          <tr>
-            <td>
-              <ul className="h-full flex flex-col gap-[7px] py-4">
-                {items &&
-                  items.map(
-                    ({ id, image, amount, title, price, discountedPrice }) => (
-                      <li className="flex flex-row justify-between items-center border px-2 py-2 rounded-md">
-                        <div className="flex flex-row  items-center gap-[5px]  max-w-[100%] w-full">
-                          <div className="max-w-[4rem] w-full h-[4rem] relative">
-                            <img
-                              className="absolute h-full  w-full object-cover aspect-auto"
-                              src={image.url}
-                              alt=""
-                            />
-                          </div>
+    <div
+      className={`w-full  max-w-[50rem] h-[65vh] flex flex-col bg-white px-2  rounded-md ${
+        items.length === 0 ? 'items-center justify-center' : null
+      }`}
+    >
+      {items.length === 0 ? null : (
+        <div className="border-b-[0.1px] my-2">
+          <h1 className=" py-2">Shopping Cart</h1>
+        </div>
+      )}
+      {items.length === 0 ? (
+        <EmptyCartUI />
+      ) : (
+        <>
+          {' '}
+          <ul className="h-full flex flex-col gap-[7px] py-4 overflow-scroll">
+            {items &&
+              items.map(
+                ({ id, image, amount, title, price, discountedPrice }) => (
+                  <li
+                    key={id}
+                    className="flex flex-row justify-between items-center border px-2 py-2 rounded-md"
+                  >
+                    <div className="flex flex-row  items-center gap-[5px]  max-w-[100%]  w-full">
+                      <div className="max-w-[4rem] w-full h-[4rem] relative">
+                        <img
+                          className="absolute h-full  w-full object-cover aspect-auto"
+                          src={image.url}
+                          alt=""
+                        />
+                      </div>
 
-                          <div className="max-w-[10rem] w-full ml-2">
-                            <p>{title}</p>
-                          </div>
-                          <div className="max-w-[20rem] w-full flex flex-col justify-center items-center sm:flex-row  sm:items-center  gap-[10px]">
-                            <div className="flex  bg-slate-100 rounded-md  gap-[10px]">
-                              <RemoveProducts
-                                decrementItems={decrementItems}
-                                id={id}
-                              />
-                              <span className="  text-center">{amount}</span>
-                              <AddProducts
-                                incrementItems={incrementItems}
-                                id={id}
-                              />
-                            </div>
-                          </div>
+                      <div className="max-w-[10rem]  w-full ml-2">
+                        <p>{title}</p>
+                      </div>
+                      <div className="max-w-[15rem] w-full flex flex-col justify-center items-center   sm:items-center  gap-[10px]  ">
+                        <div className="flex  bg-slate-100 rounded-md  gap-[10px]">
+                          <RemoveProducts
+                            decrementItems={decrementItems}
+                            id={id}
+                          />
+                          <span className="  text-center">{amount}</span>
+                          <AddProducts
+                            incrementItems={incrementItems}
+                            id={id}
+                          />
                         </div>
-
                         <div>
-                          {discountedPrice && discountedPrice < price && (
-                            <p>${Math.trunc(discountedPrice)}</p>
-                          )}
+                          <button
+                            onClick={() => removeProduct(id)}
+                            className=" font-button text-red-500"
+                          >
+                            Delete
+                          </button>
                         </div>
-                      </li>
-                    )
-                  )}
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div className=" flex items-center gap-[25px]">
-        <Link to={'/'}>Back</Link>
-        <button className="bg-red-500 text-white font-button px-2 py-2 rounded-md">
-          Cancel order
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-[2px]">
+                      {discountedPrice < price && (
+                        <p>${Math.trunc(discountedPrice)}</p>
+                      )}
+
+                      {price === discountedPrice && <p>${Math.trunc(price)}</p>}
+                    </div>
+                  </li>
+                )
+              )}
+          </ul>
+          <div className=" flex items-center gap-[25px] mb-0 ">
+            <ClearCart />
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function ClearCart() {
+  const { deleteItem } = useCart();
+  const [promptConfirmation, setPromptConfirmation] = useState(false);
+
+  function displayConfirmation() {
+    setPromptConfirmation((prev) => !prev);
+  }
+
+  return (
+    <div>
+      {!promptConfirmation ? (
+        <button
+          onClick={() => displayConfirmation()}
+          className="bg-red-500 text-white font-button px-2 py-2 my-2 rounded-md"
+        >
+          Empty cart
         </button>
-      </div>
+      ) : (
+        <div className="flex gap-[10px] py-2">
+          <div>
+            <p>Are you sure ?</p>
+          </div>
+          <div className="flex gap-[20px]">
+            <button
+              onClick={() => deleteItem()}
+              className="bg-blue-500 px-2 text-white font-button rounded-md"
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => displayConfirmation()}
+              className="bg-red-500 px-2 text-white font-button rounded-md"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -125,6 +180,17 @@ function RemoveProducts({ ...args }) {
         <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
       </svg>
     </button>
+  );
+}
+
+function EmptyCartUI() {
+  return (
+    <>
+      <h1>Looks like your cart is empty. </h1>
+      <Link className="text-blue-400 underline" to={'/'}>
+        Click here to browse products
+      </Link>
+    </>
   );
 }
 

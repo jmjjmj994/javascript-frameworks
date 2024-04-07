@@ -15,10 +15,11 @@ type CartStore = {
   addItem: (item: Item) => void;
   incrementItem: (itemId: string) => void;
   decrementItem: (itemId: string) => void;
-  removeItem: () => void;
+  removeItem: (itemId: string) => void;
+  deleteItem: () => void;
 };
 
-const useCart= create<CartStore>((set) => ({
+const useCart = create<CartStore>((set) => ({
   items: JSON.parse(localStorage.getItem('cartItems') || '[]') as Item[],
   addItem: (item) =>
     set((state) => {
@@ -41,7 +42,13 @@ const useCart= create<CartStore>((set) => ({
       }
     }),
 
-  removeItem: () =>
+  removeItem: (itemId) =>
+    set((state) => {
+      const updatedItems = state.items.filter((item) => item.id !== itemId);
+      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+      return { items: updatedItems };
+    }),
+  deleteItem: () =>
     set(() => {
       localStorage.removeItem('cartItems');
       return { items: [] };
