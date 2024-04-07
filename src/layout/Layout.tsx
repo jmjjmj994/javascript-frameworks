@@ -6,7 +6,7 @@ function Layout() {
   return (
     <HelmetProvider>
       <Header />
-      <main className="wrapper">
+      <main className="wrapper bg-primary">
         <Outlet />
       </main>
       <Footer />
