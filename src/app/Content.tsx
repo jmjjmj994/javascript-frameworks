@@ -3,14 +3,11 @@ import useFetch from '../hooks/use-fetch';
 import { APIData } from '../hooks/use-fetch';
 import { useEffect, useState } from 'react';
 function Content() {
-  const { data, loading, error } = useFetch('');
+  const { data } = useFetch('');
   const [product, setProduct] = useState<APIData[]>([]);
   useEffect(() => {
     setProduct(data);
   }, [data]);
-
-console.log(product)
-
 
   return (
     <div>
