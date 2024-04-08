@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import useCart from '../../hooks/use-cart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -7,16 +8,18 @@ import {
   faApplePay,
   faCcVisa,
 } from '@fortawesome/free-brands-svg-icons';
-
 const paypal = <FontAwesomeIcon icon={faPaypal} />;
 const googlePay = <FontAwesomeIcon icon={faGooglePay} />;
 const applePay = <FontAwesomeIcon icon={faApplePay} />;
 const visaCard = <FontAwesomeIcon icon={faCcVisa} />;
 
 function CartSummary() {
-  const { items } = useCart();
-
+  const { items, deleteItem } = useCart();
   const [total, setTotal] = useState(0);
+
+  function clearCart() {
+    deleteItem();
+  }
 
   useEffect(() => {
     let initial = 0;
@@ -73,9 +76,14 @@ function CartSummary() {
             {applePay}
           </span>
         </div>
-        <button className="w-full py-2 bg-blue-600 text-white font-button my-2 rounded-md">
+        <Link
+          to={'/success'}
+          role="button"
+          onClick={() => clearCart()}
+          className="w-full py-2 bg-blue-600 text-white font-button my-2 rounded-md text-center"
+        >
           Checkout
-        </button>
+        </Link>
       </div>
     </div>
   );
