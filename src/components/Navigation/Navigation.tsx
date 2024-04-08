@@ -1,12 +1,33 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import navLink from './navLinks';
 import { TogglerContext } from '../../hooks/use-toggler';
 import { useContext } from 'react';
 import { motion } from 'framer-motion';
 function Navigation() {
-  const { navActive } = useContext(TogglerContext)!;
+  const { navActive, handleNavActive } = useContext(TogglerContext)!;
+
+  const navigationRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        navigationRef.current &&
+        navActive &&
+        !(navigationRef.current as HTMLElement).contains(event.target as Node)
+      ) {
+        handleNavActive();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleNavActive, navActive]);
+
   return (
     <motion.nav
+      ref={navigationRef}
       initial={false}
       animate={{ x: navActive ? 0 : '100%' }}
       transition={{
@@ -14,15 +35,17 @@ function Navigation() {
         ease: 'easeIn',
         duration: 0.15,
       }}
-      className={`fixed top-0 right-0 w-[25rem] h-full bg-pink-400  z-[2]`}
+      className={`fixed top-0 right-0 w-[25rem] h-full bg-white  z-[2]`}
     >
-      <div className="h-[10vh] bg-purple-500 flex justify-end items-center">
+      <div className="h-[10vh] bg-white flex justify-end items-center">
         <Button />
       </div>
       <ul className="flex flex-col gap-[20px] px-5 py-5">
         {navLink.map(({ id, path, label }) => (
           <li key={id}>
-            <Link to={path}>{label}</Link>
+            <Link onClick={() => handleNavActive()} to={path}>
+              {label}
+            </Link>
           </li>
         ))}
       </ul>

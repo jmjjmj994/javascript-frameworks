@@ -8,7 +8,7 @@ function App() {
         <title>Home</title>
       </Helmet>
 
-      <div className="bg-orange-500 wrapper md:max-w-[80%] m-auto ">
+      <div className=" wrapper md:max-w-[80%] m-auto py-[40px]">
         <Content />
       </div>
     </>

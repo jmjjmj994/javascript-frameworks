@@ -1,13 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useFetch from '../../hooks/use-fetch';
 import { APIData } from '../../hooks/use-fetch';
 import { Link } from 'react-router-dom';
+import styles from './header.module.css';
 
 function Search() {
   const { data, loading } = useFetch('');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<APIData[]>([]);
   const [searchActive, setSearchActive] = useState(false);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        searchRef.current &&
+        !(searchRef.current as HTMLElement).contains(event.target as Node)
+      ) {
+        setSearchActive(false);
+        setSearchQuery('');
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (!loading && searchQuery) {
@@ -29,18 +49,18 @@ function Search() {
 
   return (
     <>
-      <form className=" h-auto flex items-center max-w-[80%] w-full m-auto bg-red-500">
-        <div className="w-full  relative bg-green-400">
+      <form className=" h-auto flex items-center max-w-[80%] w-full m-auto">
+        <div className="w-full  relative ">
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-full "
+            className="w-full h-full rounded-md border py-2 pl-5"
             id="search"
             type="text"
             placeholder="Search item..."
           />
           <label
-            className="absolute right-[5px]  top-[15%]"
+            className="absolute right-[15px]  top-[25%]"
             htmlFor="search"
             aria-label="search"
           >
@@ -63,14 +83,18 @@ function Search() {
       </form>
 
       {searchResults.length > 0 && searchActive ? (
-        <ul className="bg-purple-500 absolute flex flex-col  top-[100%] left-[50%] transform -translate-x-1/2  min-h-0 overflow-y-scroll md:max-w-[60%] w-full  max-h-[50vh] z-[1]  pb-[10px]  px-4">
+        <ul
+          ref={searchRef}
+          className="bg-white absolute flex flex-col  top-[100%] left-[50%] transform -translate-x-1/2  min-h-0 overflow-y-scroll md:max-w-[60%] w-full  max-h-[50vh] z-[1]  pb-[10px]  px-4"
+        >
           <CloseSearch handleSearchActive={handleSearchActive} />
           {searchResults.length > 0 &&
             searchResults.map(
               ({ id, title, image, price, discountedPrice }) => (
                 <li className="rounded-md relative" key={id}>
                   <Link
-                    className="flex  bg-blue-500 justify-between items-center mt-1 px-4 py-2 "
+                    onClick={() => handleSearchActive()}
+                    className="flex  justify-between items-center mt-1 px-4 py-2 border"
                     to={`/product/${id}`}
                   >
                     <img
@@ -83,10 +107,12 @@ function Search() {
                       {discountedPrice < price ? (
                         <div className="flex gap-[10px]">
                           <p>${Math.trunc(discountedPrice)}</p>{' '}
-                          <p>${Math.trunc(price)}</p>
+                          <p className={styles.discounted}>
+                            ${Math.trunc(price)}
+                          </p>
                         </div>
                       ) : price === discountedPrice ? (
-                        <p>{price}</p>
+                        <p>${price}</p>
                       ) : null}
                     </div>
                   </Link>

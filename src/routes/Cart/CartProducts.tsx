@@ -68,7 +68,7 @@ function CartProducts() {
                             onClick={() => removeProduct(id)}
                             className=" font-button text-red-500"
                           >
-                            Delete
+                            Remove
                           </button>
                         </div>
                       </div>

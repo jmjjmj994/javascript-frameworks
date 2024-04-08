@@ -1,5 +1,6 @@
 import Navigation from '../Navigation/Navigation';
 import { TogglerContext, TogglerProvider } from '../../hooks/use-toggler';
+import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import CartIcon from './CartIcon';
 import Search from './Search';
@@ -8,9 +9,15 @@ function Header() {
   return (
     <TogglerProvider>
       <header className="flex flex-col items-between relative ">
-        <div className=" wrapper bg-orange-500 w-full h-[50%] flex  justify-between items-center max-w-[80%] m-auto">
-          <div>
-            <b>Logo</b>
+        <div className=" wrapper  w-full h-[50%] flex  justify-between items-center max-w-[80%] m-auto">
+          <div className="w-[8rem] h-[8rem] relative ">
+            <Link to={'/'} className="absolute w-full h-full">
+              <img
+                className="w-full h-full object-cover aspect-auto"
+                src="src/assets/Untitled design.png"
+                alt=""
+              />
+            </Link>
           </div>
           <Navigation />
           <div className="flex gap-[10px]">
@@ -19,7 +26,6 @@ function Header() {
           </div>
         </div>
         <Search />
-        <div className="bg-blue-500 h-[50%] "></div>
       </header>
     </TogglerProvider>
   );
