@@ -1,0 +1,5 @@
+.discounted {
+  text-decoration: line-through;
+  text-decoration-color: purple;
+  text-decoration-thickness: 3px;
+}

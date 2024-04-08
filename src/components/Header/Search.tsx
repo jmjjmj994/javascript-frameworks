@@ -71,7 +71,7 @@ function Search() {
                 <li className="rounded-md relative" key={id}>
                   <Link
                     className="flex  bg-blue-500 justify-between items-center mt-1 px-4 py-2 "
-                    to={''}
+                    to={`/product/${id}`}
                   >
                     <img
                       className="h-[5rem] w-[5rem] object-cover aspect-square"
