@@ -14,7 +14,7 @@ function Navigation() {
         ease: 'easeIn',
         duration: 0.15,
       }}
-      className={`fixed top-0 right-0 w-full h-full bg-pink-400 `}
+      className={`fixed top-0 right-0 w-[25rem] h-full bg-pink-400  z-[2]`}
     >
       <div className="h-[10vh] bg-purple-500 flex justify-end items-center">
         <Button />

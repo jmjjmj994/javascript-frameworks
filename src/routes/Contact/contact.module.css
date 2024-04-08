@@ -1,0 +1,5 @@
+.error {
+  color: red;
+  min-height: 5vh;
+  font-size: 0.9rem;
+}
