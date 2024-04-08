@@ -121,7 +121,7 @@ export function ProductDetail() {
 
           <div className="flex flex-col max-w-[40rem]   w-full gap-[25px] max-h-[50vh] px-2 py-2">
             <div className="flex gap-[20px]  w-full">
-              {product?.discountedPrice ?? 0 < product?.price ? (
+              {product?.discountedPrice ?? 0 < (product?.price ?? 0) ? (
                 <>
                   <p className={styles.discounted}>${product?.price}</p>
                   <p>${product?.discountedPrice}</p>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useCart from '../../hooks/use-cart';
 import { Link } from 'react-router-dom';
 function CartProducts() {

@@ -1,12 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCart from '../../hooks/use-cart';
-
-import { TogglerContext } from '../../hooks/use-toggler';
 function CartIcon() {
   const { items } = useCart();
   const [amount, setAmount] = useState(0);
-  const { handleCartActive } = useContext(TogglerContext) || {};
 
   useEffect(() => {
     function calculateAmount() {

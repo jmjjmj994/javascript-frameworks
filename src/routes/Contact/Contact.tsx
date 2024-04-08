@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styles from './contact.module.css';
 import { useEffect, useState } from 'react';
-import { RiH1 } from 'react-icons/ri';
 
 type FormInputs = {
   first_name: string;
@@ -143,7 +142,12 @@ function Contact() {
             </label>
           </div>
 
-          <button className='bg-blue-400 text-white font-button py-2 rounded-md' type="submit">Send</button>
+          <button
+            className="bg-blue-400 text-white font-button py-2 rounded-md"
+            type="submit"
+          >
+            Send
+          </button>
         </form>
       )}
     </div>
